@@ -95,6 +95,10 @@ export class MyMCP extends McpAgent {
     const env = this.env as CloudflareEnvironment;
 
     // If github_token was provided in URL, override env.GITHUB_TOKEN
+    // This is safe because:
+    // 1. Token is only used for this request's lifetime
+    // 2. Token has already been removed from the canonical URL above
+    // 3. The env object is request-scoped, not shared globally
     if (githubToken) {
       env.GITHUB_TOKEN = githubToken;
     }

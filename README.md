@@ -222,14 +222,14 @@ GitMCP supports GitHub API authentication to increase rate limits and access pri
 
 Set the `GITHUB_TOKEN` environment variable when deploying the service:
 ```bash
-export GITHUB_TOKEN=ghp_your_token_here
+export GITHUB_TOKEN=YOUR_TOKEN_HERE
 ```
 
 #### Method 2: URL Parameter
 
 Add the `github_token` parameter to the URL when connecting:
 ```
-https://gitmcp.io/{owner}/{repo}?github_token=ghp_your_token_here
+https://gitmcp.io/{owner}/{repo}?github_token=YOUR_TOKEN_HERE
 ```
 
 For example, in Cursor:
@@ -237,7 +237,7 @@ For example, in Cursor:
 {
   "mcpServers": {
     "gitmcp": {
-      "url": "https://gitmcp.io/{owner}/{repo}?github_token=ghp_your_token_here"
+      "url": "https://gitmcp.io/{owner}/{repo}?github_token=YOUR_TOKEN_HERE"
     }
   }
 }
