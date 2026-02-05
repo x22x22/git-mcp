@@ -33,7 +33,8 @@ describe("GitHub Token Parameter Support", () => {
     expect(githubToken).toBe("ghp_test");
 
     // Clean params (simulate what init() does)
-    url.searchParams.forEach((_, key) => {
+    // Convert to array first to avoid issues with deleting during iteration
+    Array.from(url.searchParams.keys()).forEach((key) => {
       if (key !== "sessionId") {
         url.searchParams.delete(key);
       }

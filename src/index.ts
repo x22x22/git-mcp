@@ -18,6 +18,7 @@ declare global {
     OPENAI_API_KEY?: string;
     ANTHROPIC_API_KEY?: string;
     XAI_API_KEY?: string;
+    GITHUB_TOKEN?: string;
   }
 }
 
@@ -81,7 +82,8 @@ export class MyMCP extends McpAgent {
     const githubToken = url.searchParams.get("github_token");
 
     // clean search params
-    url.searchParams.forEach((_, key) => {
+    // Convert to array first to avoid issues with deleting during iteration
+    Array.from(url.searchParams.keys()).forEach((key) => {
       if (key !== "sessionId") {
         url.searchParams.delete(key);
       }
@@ -94,7 +96,7 @@ export class MyMCP extends McpAgent {
 
     // If github_token was provided in URL, override env.GITHUB_TOKEN
     if (githubToken) {
-      (env as any).GITHUB_TOKEN = githubToken;
+      env.GITHUB_TOKEN = githubToken;
     }
 
     const ctx = this.ctx;

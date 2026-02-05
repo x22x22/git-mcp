@@ -243,7 +243,7 @@ For example, in Cursor:
 }
 ```
 
-> **Security Note:** The token is only used to authenticate GitHub API requests and is not stored or logged. However, use caution when sharing configurations containing tokens.
+> **Security Warning:** Tokens in URLs may be logged by proxies, browsers, server logs, and other intermediaries. For production use and maximum security, **environment variables are strongly recommended**. URL parameters should only be used for testing or when environment variables are not available.
 
 **Token Types Supported:**
 - Classic tokens (`ghp_*`)
