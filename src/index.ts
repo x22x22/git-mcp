@@ -77,6 +77,9 @@ export class MyMCP extends McpAgent {
       throw new Error("Invalid request: Missing host or URL");
     }
 
+    // Extract github_token from URL parameters before cleaning
+    const githubToken = url.searchParams.get("github_token");
+
     // clean search params
     url.searchParams.forEach((_, key) => {
       if (key !== "sessionId") {
@@ -88,6 +91,12 @@ export class MyMCP extends McpAgent {
     const canonicalUrl = url.toString();
 
     const env = this.env as CloudflareEnvironment;
+
+    // If github_token was provided in URL, override env.GITHUB_TOKEN
+    if (githubToken) {
+      (env as any).GITHUB_TOKEN = githubToken;
+    }
+
     const ctx = this.ctx;
 
     const repoData = getRepoData({
