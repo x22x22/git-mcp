@@ -214,6 +214,47 @@ For more details on configuring MCP servers in Augment Code, visit [the Augment 
 
 > **Note:** Remember to replace `{owner}` and `{repo}` with the actual GitHub username/organization and repository name. You can also use the dynamic endpoint `https://gitmcp.io/docs` to allow your AI to access any repository on demand.
 
+### Authentication (Optional)
+
+GitMCP supports GitHub API authentication to increase rate limits and access private repositories. You can provide a GitHub token in two ways:
+
+#### Method 1: Environment Variable (Recommended for Self-Hosting)
+
+Set the `GITHUB_TOKEN` environment variable when deploying the service:
+```bash
+export GITHUB_TOKEN=YOUR_TOKEN_HERE
+```
+
+#### Method 2: URL Parameter
+
+Add the `github_token` parameter to the URL when connecting:
+```
+https://gitmcp.io/{owner}/{repo}?github_token=YOUR_TOKEN_HERE
+```
+
+For example, in Cursor:
+```json
+{
+  "mcpServers": {
+    "gitmcp": {
+      "url": "https://gitmcp.io/{owner}/{repo}?github_token=YOUR_TOKEN_HERE"
+    }
+  }
+}
+```
+
+> **Security Warning:** Tokens in URLs may be logged by proxies, browsers, server logs, and other intermediaries. For production use and maximum security, **environment variables are strongly recommended**. URL parameters should only be used for testing or when environment variables are not available.
+
+**Token Types Supported:**
+- Classic tokens (`ghp_*`)
+- Fine-grained personal access tokens (`github_pat_*`)
+- OAuth tokens (`gho_*`)
+
+**Required Permissions:**
+- `repo` (for private repositories)
+- `public_repo` (for public repositories, increases rate limits)
+
+
 ## ⚙ How It Works
 
 GitMCP connects your AI assistant to GitHub repositories using the Model Context Protocol (MCP), a standard that lets AI tools request additional information from external sources.
